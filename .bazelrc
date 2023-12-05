@@ -1,0 +1,27 @@
+# Enable Bzlmod for every Bazel command
+common --enable_bzlmod
+
+# All options comming from this file will be announced on the terminal.
+common --announce_rc
+
+# Add timestamps to message.
+# common --show_timestamps
+
+# If a command fails, print out the full command line.
+build --verbose_failures
+
+# Use C++20 as C++17 would output annoying warnings like the following;
+# warning: nested namespace definition is a C++17 extension; define each namespace separately [-Wc++17-extensions]
+#   namespace amp::config {
+# Note: This is disabled as arm_none_eabi (for STM32) toolchain config doesn't play well with C++20.
+#       This can instead be optionally enabled for non-STM32 build targets.
+# build --cxxopt=-std=c++20
+build --cxxopt=-std=c++17
+
+# Build using platforms by default
+# Background: https://bazel.build/concepts/platforms#status
+build --incompatible_enable_cc_toolchain_resolution
+
+# Print the full error of the test that fails.
+test --test_output=errors
+
